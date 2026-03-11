@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Monthly Placement Report</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500;600&display=swap');
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background-color: #f0ece4;
+      font-family: 'DM Sans', sans-serif;
+      padding: 40px 16px;
+      color: #1a1a2e;
+    }
+
+    .wrapper {
+      max-width: 620px;
+      margin: 0 auto;
+    }
+
+    .header {
+      background-color: #1a1a2e;
+      border-radius: 16px 16px 0 0;
+      padding: 40px 40px 32px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .header::before {
+      content: '';
+      position: absolute;
+      top: -60px; right: -60px;
+      width: 200px; height: 200px;
+      border-radius: 50%;
+      background: rgba(255,214,0,0.08);
+    }
+
+    .header::after {
+      content: '';
+      position: absolute;
+      bottom: -40px; left: 30px;
+      width: 120px; height: 120px;
+      border-radius: 50%;
+      background: rgba(255,214,0,0.05);
+    }
+
+    .header-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #ffd600;
+      margin-bottom: 12px;
+    }
+
+    .header h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 32px;
+      color: #ffffff;
+      line-height: 1.2;
+      position: relative;
+      z-index: 1;
+    }
+
+    .header-date {
+      margin-top: 16px;
+      font-size: 13px;
+      color: rgba(255,255,255,0.45);
+      letter-spacing: 0.5px;
+    }
+
+    .stats {
+      background: #ffffff;
+      padding: 36px 40px;
+      display: flex;
+      gap: 0;
+      border-left: 1px solid #e8e2d9;
+      border-right: 1px solid #e8e2d9;
+    }
+
+    .stat-item {
+      flex: 1;
+      text-align: center;
+      padding: 20px 12px;
+      position: relative;
+    }
+
+    .stat-item:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      right: 0; top: 20%; height: 60%;
+      width: 1px;
+      background: #e8e2d9;
+    }
+
+    .stat-number {
+      font-family: 'DM Serif Display', serif;
+      font-size: 48px;
+      color: #1a1a2e;
+      line-height: 1;
+      display: block;
+    }
+
+    .stat-number.highlight {
+      color: #ffd600;
+      -webkit-text-stroke: 1.5px #1a1a2e;
+    }
+
+    .stat-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #999;
+      margin-top: 8px;
+      display: block;
+    }
+
+    .summary {
+      background: #1a1a2e;
+      padding: 32px 40px;
+      border-left: 1px solid #1a1a2e;
+      border-right: 1px solid #1a1a2e;
+    }
+
+    .summary-title {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #ffd600;
+      margin-bottom: 20px;
+    }
+
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+
+    .summary-row:last-child { border-bottom: none; }
+
+    .summary-key {
+      font-size: 13px;
+      color: rgba(255,255,255,0.55);
+      font-weight: 400;
+    }
+
+    .summary-val {
+      font-size: 14px;
+      color: #ffffff;
+      font-weight: 600;
+    }
+
+    .rate-section {
+      background: #ffffff;
+      padding: 28px 40px;
+      border-left: 1px solid #e8e2d9;
+      border-right: 1px solid #e8e2d9;
+    }
+
+    .rate-label {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+
+    .rate-label span:first-child {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: #888;
+    }
+
+    .rate-label span:last-child {
+      font-size: 13px;
+      font-weight: 600;
+      color: #1a1a2e;
+    }
+
+    .bar-track {
+      background: #f0ece4;
+      border-radius: 99px;
+      height: 8px;
+      overflow: hidden;
+    }
+
+    .bar-fill {
+      height: 100%;
+      border-radius: 99px;
+      background: linear-gradient(90deg, #ffd600, #ffaa00);
+      min-width: 4px;
+    }
+
+    .footer {
+      background: #f7f3ec;
+      border-radius: 0 0 16px 16px;
+      border: 1px solid #e8e2d9;
+      border-top: none;
+      padding: 24px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-brand {
+      font-family: 'DM Serif Display', serif;
+      font-size: 15px;
+      color: #1a1a2e;
+    }
+
+    .footer-note {
+      font-size: 11px;
+      color: #aaa;
+      text-align: right;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+
+    <div class="header">
+      <div class="header-label">Automated Report</div>
+      <h1>Monthly Placement<br>Activity Report</h1>
+      <div class="header-date">
+        Generated on {{ now.strftime('%B %d, %Y') }} &nbsp;·&nbsp; Previous Month Summary
+      </div>
+    </div>
+
+    <div class="stats">
+      <div class="stat-item">
+        <span class="stat-number">{{ drives }}</span>
+        <span class="stat-label">Drives</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number">{{ applications }}</span>
+        <span class="stat-label">Applied</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number highlight">{{ selected }}</span>
+        <span class="stat-label">Selected</span>
+      </div>
+    </div>
+
+    <div class="summary">
+      <div class="summary-title">Breakdown</div>
+      <div class="summary-row">
+        <span class="summary-key">Total Drives Conducted</span>
+        <span class="summary-val">{{ drives }}</span>
+      </div>
+      <div class="summary-row">
+        <span class="summary-key">Total Applications Received</span>
+        <span class="summary-val">{{ applications }}</span>
+      </div>
+      <div class="summary-row">
+        <span class="summary-key">Students Selected</span>
+        <span class="summary-val">{{ selected }}</span>
+      </div>
+      <div class="summary-row">
+        <span class="summary-key">Avg. Applications per Drive</span>
+        <span class="summary-val">
+          {{ (applications / drives) | round(1) if drives > 0 else '—' }}
+        </span>
+      </div>
+    </div>
+
+    <div class="rate-section">
+      <div class="rate-label">
+        <span>Selection Rate</span>
+        <span>{{ ((selected / applications) * 100) | round(1) if applications > 0 else 0 }}%</span>
+      </div>
+      <div class="bar-track">
+        <div class="bar-fill" style="width: {{ ((selected / applications) * 100) | round(1) if applications > 0 else 0 }}%;"></div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <div class="footer-brand">Placement Portal</div>
+      <div class="footer-note">Auto-generated report<br>Do not reply to this email</div>
+    </div>
+
+  </div>
+</body>
+</html>
